@@ -1,6 +1,11 @@
-# runico_ufabc
+# RUnico UFABC
 
 Projeto App Runico
+
+# Resumo
+
+Este APP consiste em um app de recarga de cŕeditos do Restaurante Universitário da UFABC. Desenvolvido para a disciplina de Engenharia de Software Q1.2023.
+O app está sendo desenvolvido tanto no Front End quanto no Back End em Dart, utilizando o Framework Flutter.
 
 ## Getting Started
 
