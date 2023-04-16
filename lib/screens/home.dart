@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:runico_ufabc/resources/colors.dart';
 import 'package:runico_ufabc/screens/credits_selection.dart';
+import 'package:runico_ufabc/components/user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,10 +14,16 @@ class HomePage extends StatefulWidget {
 class _HomeState extends State<HomePage> {
   int _selectedIndex = 1;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
-    const Text('Cardapio',style: optionStyle,),
+    const Text(
+      'Cardapio',
+      style: optionStyle,
+    ),
     Builder(builder: (context) {
+      final userProvider = context.watch<UserProvider>();
+      final user = userProvider.user;
+
       return Stack(
         children: [
           Container(
@@ -26,12 +34,50 @@ class _HomeState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Text(
+                  'Home',
+                  style: TextStyle(
+                    fontSize: 45,
+                    color: coresufabc,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Container(
+                  width: 300,
+                  height: 75,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(6)
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Olá, ${user?.name}',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: coresufabc,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Text(
+                        'Acesso do tipo: ${user?.userType}',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: coresufabc,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(22),
                       border: Border.all(color: Colors.black, width: 3)),
-                  width: 250,
+                  width: 300,
                   height: 200,
                   child: Column(
                     children: [
@@ -44,7 +90,7 @@ class _HomeState extends State<HomePage> {
                       ),
                       SizedBox(height: 30),
                       Text(
-                        '12',
+                        user!.creditCount.toString(),
                         style: TextStyle(fontSize: 60),
                       )
                     ],
@@ -101,15 +147,15 @@ class _HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Home',
-            style: TextStyle(
-              fontSize: 45,
-              color: Color(0xFFFFCC00),
-            ),
-          ),
-        ),
+        // title: const Center(
+        //   child: Text(
+        //     'RUnico UFABC',
+        //     style: TextStyle(
+        //       fontSize: 45,
+        //       color: Color(0xFFFFCC00),
+        //     ),
+        //   ),
+        // ),
         backgroundColor: const Color(0xFF006633),
       ),
       body: Center(
@@ -121,18 +167,12 @@ class _HomeState extends State<HomePage> {
             icon: Icon(Icons.restaurant_menu_outlined),
             label: 'Cardápio',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home'
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.logout),
-            label: 'Logout'
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Logout'),
         ],
         backgroundColor: coresufabc,
         currentIndex: _selectedIndex,
-        unselectedItemColor : Colors.white,
+        unselectedItemColor: Colors.white,
         selectedItemColor: Colors.amber,
         onTap: _onItemTapped,
       ),
