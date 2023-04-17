@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:runico_ufabc/data/database.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:runico_ufabc/components/user.dart';
@@ -24,7 +23,7 @@ class UserDao {
     var itemExists = await find(user.email);
     Map<String, dynamic> userMap = toMap(user);
     if (itemExists.isEmpty) {
-      print('A tarefa não existia!');
+      print('O usuario não existia!');
       return await database.insert(_tablename, userMap);
     } else {
       print('O usuario já existia!');

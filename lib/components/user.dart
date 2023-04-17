@@ -23,6 +23,7 @@ class UserProvider with ChangeNotifier {
     _user = user;
     notifyListeners();
   }
+
   void addCredits(int credits) {
     if (user?.creditCount != null){
       user?.creditCount += credits;
