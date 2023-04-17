@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:runico_ufabc/screens/home.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:runico_ufabc/components/user.dart';
 
 class Login_dados extends StatefulWidget {
+  const Login_dados(
+      {Key? key, required this.userGoogle})
+      : super(key: key);
+
+  final GoogleSignInAccount userGoogle;
+
   @override
   _MyFormDataPageState createState() => _MyFormDataPageState();
 }
@@ -50,7 +59,16 @@ class _MyFormDataPageState extends State<Login_dados> {
                 onPressed: () {
                   final email = _emailController.text;
                   final ra = _raController.text;
-                  print('E-mail: $email, RA: $ra');
+                  String name = widget.userGoogle.displayName ?? "";
+                  String emailGoogle = widget.userGoogle.email ?? "";
+
+                  final userProvider = Provider.of<UserProvider>(context, listen: false);
+                  userProvider.setUser(User(
+                      name: name,
+                      email: emailGoogle,
+                      userType: 'Aluno',
+                      creditCount: 0));
+
                   Navigator.push(
                       context,
                       MaterialPageRoute(

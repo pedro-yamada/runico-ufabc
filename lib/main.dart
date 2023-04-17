@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    loginUser(context);
+    // loginUser(context);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -38,11 +38,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void loginUser(BuildContext context) {
-  final userProvider = Provider.of<UserProvider>(context, listen: false);
-  userProvider.setUser(User(
-      name: 'Pedro',
-      email: 'pepe.yamada1@gmail.com',
-      userType: 'Aluno',
-      creditCount: 0));
-}
+// void loginUser(BuildContext context) {
+//   final userProvider = Provider.of<UserProvider>(context, listen: false);
+//   userProvider.setUser(User(
+//       name: 'Pedro',
+//       email: 'pepe.yamada1@gmail.com',
+//       userType: 'Aluno',
+//       creditCount: 0));
+// }

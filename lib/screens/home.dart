@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:runico_ufabc/resources/colors.dart';
 import 'package:runico_ufabc/screens/home_menu.dart';
 import 'package:runico_ufabc/screens/home_screen.dart';
+import 'package:runico_ufabc/api/google_signin_api.dart';
+import 'initial_screeen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomeState extends State<HomePage> {
   int _selectedIndex = 1;
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOptions = <Widget>[
     const MenuScreen(),
     const HomeScreen(),
@@ -24,13 +26,13 @@ class _HomeState extends State<HomePage> {
   ];
 
   void _onItemTapped(int index) {
-    if (index == 2){
-      int count = 0;
-      Navigator.popUntil(context, (route) {
-        return count++ == 3;
-      });
+    if (index == 2) {
+      GoogleSignInAPI.loggout();
+      Navigator.of(context)
+          .pushReplacement(
+          MaterialPageRoute(builder: (context) => InititalScreen()));
     }
-    else{
+    else {
       setState(() {
         _selectedIndex = index;
       });
@@ -41,7 +43,7 @@ class _HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading : false,
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF006633),
       ),
       body: Center(

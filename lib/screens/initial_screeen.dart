@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:runico_ufabc/screens/login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:runico_ufabc/api/google_signin_api.dart';
+import 'package:runico_ufabc/components/user.dart';
 
-class InititalScreen extends StatelessWidget {
+class InititalScreen extends StatefulWidget {
   const InititalScreen({Key? key}) : super(key: key);
+
+  @override
+  State<InititalScreen> createState() => _InititalScreenState();
+}
+
+class _InititalScreenState extends State<InititalScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +82,7 @@ class InititalScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (contextNew) => Login(),
-                              ));
+                          signInGoogle(context);
                         },
                       ),
                       const SizedBox(
@@ -88,5 +93,18 @@ class InititalScreen extends StatelessWidget {
                 )
               ],
             )));
+  }
+}
+
+Future signInGoogle(context) async {
+  final user = await GoogleSignInAPI.login();
+
+  if (user == null) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Sign in failed')));
+  } else {
+
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => Login(userGoogle: user,) ));
   }
 }
