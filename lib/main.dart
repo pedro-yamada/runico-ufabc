@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'resources/colors.dart';
-import 'screens/home.dart';
 import 'package:runico_ufabc/components/user.dart';
 import 'package:provider/provider.dart';
+import 'package:runico_ufabc/screens/initial_screeen.dart';
+import 'package:runico_ufabc/screens/home.dart';
 
 void main() {
   runApp(
@@ -29,12 +30,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: coresufabc,
       ),
-      home: const HomePage(),
+      routes: {
+        '/home': (context) => const HomePage(),
+      },
+      home: const InititalScreen(),
     );
   }
 }
 
-void loginUser(BuildContext context){
+void loginUser(BuildContext context) {
   final userProvider = Provider.of<UserProvider>(context, listen: false);
-  userProvider.setUser(User(name: 'Pedro', email: 'pepe.yamada1@gmail.com', userType: 'Aluno', creditCount: 0));
+  userProvider.setUser(User(
+      name: 'Pedro',
+      email: 'pepe.yamada1@gmail.com',
+      userType: 'Aluno',
+      creditCount: 0));
 }

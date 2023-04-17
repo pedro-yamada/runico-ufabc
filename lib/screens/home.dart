@@ -24,15 +24,24 @@ class _HomeState extends State<HomePage> {
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 2){
+      int count = 0;
+      Navigator.popUntil(context, (route) {
+        return count++ == 3;
+      });
+    }
+    else{
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading : false,
         backgroundColor: const Color(0xFF006633),
       ),
       body: Center(

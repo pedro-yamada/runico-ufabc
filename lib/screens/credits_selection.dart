@@ -145,10 +145,6 @@ class _selecaoCreditosState extends State<selecaoCreditos> {
                               });
                             }
                           });
-                          //
-                          // setState(() {
-                          //   calculaValor(controladorInput.text, cotacao);
-                          // });
                         },
                         keyboardType: TextInputType.number,
                         controller: controladorInput,

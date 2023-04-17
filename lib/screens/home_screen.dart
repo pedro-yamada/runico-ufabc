@@ -13,111 +13,117 @@ class HomeScreen extends StatelessWidget {
       final userProvider = context.watch<UserProvider>();
       final user = userProvider.user;
 
-      return Stack(
-        children: [
-          Container(
-            color: const Color(0xFFFFCC00),
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Home',
-                  style: TextStyle(
-                      fontSize: 45,
-                      color: coresufabc,
-                      fontWeight: FontWeight.bold
+      return SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+              color: const Color(0xFFFFCC00),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Home',
+                    style: TextStyle(
+                        fontSize: 45,
+                        color: coresufabc,
+                        fontWeight: FontWeight.bold
+                    ),
                   ),
-                ),
-                Container(
-                  width: 300,
-                  height: 75,
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(6)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Olá, ${user?.name}',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            color: coresufabc,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      Text(
-                        'Acesso do tipo: ${user?.userType}',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            color: coresufabc,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(22),
-                      border: Border.all(color: Colors.black, width: 3)),
-                  width: 300,
-                  height: 200,
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'Quantidade de Créditos:',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      Text(
-                        user!.creditCount.toString(),
-                        style: const TextStyle(fontSize: 60),
-                      )
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF006633),
-                  ),
-                  child: SizedBox(
-                    width: 250,
-                    height: 50,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.monetization_on_outlined),
+                  SizedBox(height: 50,),
+                  Container(
+                    width: 300,
+                    height: 75,
+                    decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(6)
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Text(
-                          'Recarregar',
-                          style: TextStyle(fontSize: 30),
+                          'Olá, ${user?.name}',
+                          style: const TextStyle(
+                              fontSize: 20,
+                              color: coresufabc,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        Text(
+                          'Acesso do tipo: ${user?.userType}',
+                          style: const TextStyle(
+                              fontSize: 20,
+                              color: coresufabc,
+                              fontWeight: FontWeight.bold
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (contextNew) => selecaoCreditos(),
-                        ));
-                  },
-                ),
-                const SizedBox(
-                  height: 100,
-                )
-              ],
-            ),
-          )
-        ],
+                  SizedBox(height: 30,),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(color: Colors.black, width: 3)),
+                    width: 300,
+                    height: 200,
+                    child: Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Quantidade de Créditos:',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        Text(
+                          user!.creditCount.toString(),
+                          style: const TextStyle(fontSize: 60),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30,),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF006633),
+                    ),
+                    child: SizedBox(
+                      width: 250,
+                      height: 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.monetization_on_outlined),
+                          Text(
+                            'Recarregar',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (contextNew) => selecaoCreditos(),
+                          ));
+                    },
+                  ),
+                  const SizedBox(
+                    height: 100,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       );
     });
   }

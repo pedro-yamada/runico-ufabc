@@ -80,7 +80,11 @@ class selecaoMetodo extends StatelessWidget {
                 ),
                 onPressed: () {
                   userProvider.addCredits(credits);
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  // Navigator.of(context).popUntil((route) => route.isFirst);
+                  int count = 0;
+                  Navigator.popUntil(context, (route) {
+                    return count++ == 2;
+                  });
                 },
               ),
               ElevatedButton(
