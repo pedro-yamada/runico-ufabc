@@ -3,14 +3,14 @@ import 'package:sqflite/sqflite.dart';
 import 'package:runico_ufabc/components/user.dart';
 
 class UserDao {
-  static String createTableSQL = 'CREATE TABLE $_tablename('
-      '$_id INTEGER AUTOINCREMENT,'
+  static String createTableSQL = 'CREATE TABLE $_tablename ('
+      '$_id INTEGER PRIMARY KEY AUTOINCREMENT, '
       '$_name TEXT, '
-      '$_email PRIMARY KEY TEXT, '
+      '$_email TEXT, '
       '$_userType TEXT, '
-      '$_creditCount INT)';
+      '$_creditCount INTEGER)';
 
-  static const String _tablename = 'userTable';
+  static const String _tablename = 'user_table';
   static const String _id = 'user_id';
   static const String _name = 'name';
   static const String _email = 'email';
@@ -27,6 +27,18 @@ class UserDao {
       return await database.insert(_tablename, userMap);
     } else {
       print('O usuario já existia!');
+    }
+  }
+
+  update(User user) async {
+    final Database database = await getDatabase();
+    var itemExists = await find(user.email);
+    Map<String, dynamic> userMap = toMap(user);
+    if (itemExists.isEmpty) {
+      print('O usuario não existia!');
+    } else {
+      database.update(_tablename, toMap(user),
+          where: '$_email = ?', whereArgs: [user.email]);
     }
   }
 
@@ -52,11 +64,11 @@ class UserDao {
     return toList(result);
   }
 
-  delete(int userid) async {
-    print('Deletando usuario de id: $userid');
+  delete(String userEmail) async {
+    print('Deletando usuario de email: $userEmail');
     final Database database = await getDatabase();
     return database
-        .delete(_tablename, where: '$_id = ?', whereArgs: [userid]);
+        .delete(_tablename, where: '$_email = ?', whereArgs: [userEmail]);
   }
 
   List<User> toList(List<Map<String, dynamic>> mapaDeUsuario) {

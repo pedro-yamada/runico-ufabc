@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:runico_ufabc/screens/login.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:runico_ufabc/api/google_signin_api.dart';
 import 'package:runico_ufabc/components/user.dart';
+import 'package:runico_ufabc/data/user_dao.dart';
+import 'package:runico_ufabc/screens/home.dart';
+import 'package:provider/provider.dart';
 
 class InititalScreen extends StatefulWidget {
   const InititalScreen({Key? key}) : super(key: key);
@@ -81,7 +83,7 @@ class _InititalScreenState extends State<InititalScreen> {
                             ],
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           signInGoogle(context);
                         },
                       ),
@@ -96,15 +98,41 @@ class _InititalScreenState extends State<InititalScreen> {
   }
 }
 
-Future signInGoogle(context) async {
-  final user = await GoogleSignInAPI.login();
+Future<bool> verifyUser(userEmail) async {
+  var itemExists = await UserDao().find(userEmail);
+  if (itemExists.isEmpty) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
-  if (user == null) {
+Future signInGoogle(context) async {
+  final userGoogle = await GoogleSignInAPI.login();
+
+  if (userGoogle == null) {
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Sign in failed')));
+        .showSnackBar(SnackBar(content: Text('Login Falhou')));
   } else {
 
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => Login(userGoogle: user,) ));
+    // Retire o comentário caso queira testar o login
+    // UserDao().delete(userGoogle.email);
+
+    if (await verifyUser(userGoogle.email)) {
+      List<User> users = await UserDao().find(userGoogle.email);
+      User user = users[0];
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      userProvider.setUser(User(
+          name: user.name,
+          email: user.email,
+          userType: user.userType,
+          creditCount: user.creditCount));
+
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+    } else {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => Login(userGoogle: userGoogle,) ));
+    }
   }
 }

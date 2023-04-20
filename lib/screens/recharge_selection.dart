@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:runico_ufabc/resources/colors.dart';
 import 'package:runico_ufabc/components/user.dart';
 import 'package:provider/provider.dart';
+import 'package:runico_ufabc/data/user_dao.dart';
 
 class selecaoMetodo extends StatelessWidget {
   final double payment_value;
@@ -80,6 +81,9 @@ class selecaoMetodo extends StatelessWidget {
                 ),
                 onPressed: () {
                   userProvider.addCredits(credits);
+
+                  UserDao().update(userProvider.user!);
+
                   // Navigator.of(context).popUntil((route) => route.isFirst);
                   int count = 0;
                   Navigator.popUntil(context, (route) {

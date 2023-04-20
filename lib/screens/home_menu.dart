@@ -1,16 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:runico_ufabc/resources/colors.dart';
+import 'package:intl/intl.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
+
+  @override
+  _MenuScreenState createState() => _MenuScreenState();
+}
+class _MenuScreenState extends State<MenuScreen> {
+  DateTime? _selectedDate;
+
+  Future <void> _selectDate(BuildContext context) async {
+    final DateTime? newSelectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2023),
+      lastDate: DateTime.now(),
+      locale: const Locale('pt', 'BR'),
+    );
+
+    if (newSelectedDate != null) {
+      setState(() {
+        _selectedDate = newSelectedDate;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
           const Text(
             'Pratos de Hoje',
             style: TextStyle(
@@ -54,15 +77,26 @@ class MenuScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 40),
-          ElevatedButton(
-              onPressed: () {},
+          Builder(
+            builder: (context) => ElevatedButton(
+              onPressed: () => _selectDate(context),
               style: ElevatedButton.styleFrom(
-                  backgroundColor: coresufabc[700],
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  textStyle: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold)),
-              child: const Text('28/02\nSEG'))
-        ]));
+                backgroundColor: coresufabc[700],
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                textStyle: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              child: Text(
+                _selectedDate != null
+                    ? DateFormat('dd/MM\nEEE').format(_selectedDate!)
+                    : 'Selecione uma data',
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
