@@ -4,6 +4,7 @@ import 'package:runico_ufabc/components/user.dart';
 import 'package:provider/provider.dart';
 import 'package:runico_ufabc/screens/initial_screeen.dart';
 import 'package:runico_ufabc/screens/home.dart';
+import 'package:runico_ufabc/data/menu_dao.dart';
 
 void main() {
   runApp(
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // loginUser(context);
+
+    MenuDao().beginInitialMenu();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -37,12 +39,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// void loginUser(BuildContext context) {
-//   final userProvider = Provider.of<UserProvider>(context, listen: false);
-//   userProvider.setUser(User(
-//       name: 'Pedro',
-//       email: 'pepe.yamada1@gmail.com',
-//       userType: 'Aluno',
-//       creditCount: 0));
-// }
