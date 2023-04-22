@@ -69,7 +69,7 @@ class _selecaoCreditosState extends State<selecaoCreditos> {
                             textAlign: TextAlign.center,
                           ),
                         ])),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Container(
@@ -82,22 +82,22 @@ class _selecaoCreditosState extends State<selecaoCreditos> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text('Cotação para ${user?.userType}:',
-                          style: TextStyle(fontSize: 18)),
+                          style: const TextStyle(fontSize: 18)),
                       Text(
                         'R\$${cotacao}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    child: Text(
+                    child: const Text(
                       'Quantidade de créditos:',
                       style: TextStyle(
                           fontSize: 24,
@@ -146,7 +146,7 @@ class _selecaoCreditosState extends State<selecaoCreditos> {
                             }
                           });
                         },
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: false),
                         controller: controladorInput,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
@@ -180,7 +180,7 @@ class _selecaoCreditosState extends State<selecaoCreditos> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    child: Text(
+                    child: const Text(
                       'Valor Final:',
                       style: TextStyle(
                           fontSize: 24,
@@ -199,10 +199,10 @@ class _selecaoCreditosState extends State<selecaoCreditos> {
                       borderRadius: BorderRadius.circular(5)),
                   child: Text(
                     'R\$ ${valor_pagamento.toStringAsFixed(2)}',
-                    style: TextStyle(fontSize: 24),
+                    style: const TextStyle(fontSize: 24),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 ElevatedButton(
@@ -218,7 +218,7 @@ class _selecaoCreditosState extends State<selecaoCreditos> {
                                   ),
                                 ));
                           },
-                    child: Text('Prosseguir',
+                    child: const Text('Prosseguir',
                         style: TextStyle(
                             fontSize: 36, fontWeight: FontWeight.bold)))
               ],

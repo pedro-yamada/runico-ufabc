@@ -20,13 +20,13 @@ class _InititalScreenState extends State<InititalScreen> {
     return Scaffold(
         backgroundColor: const Color(0xFFFFCC00),
         body: Container(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 10.0),
-                Text(
+                const SizedBox(height: 10.0),
+                const Text(
                   'RÚnico UFABC:',
                   style: TextStyle(
                       fontSize: 80,
@@ -34,8 +34,8 @@ class _InititalScreenState extends State<InititalScreen> {
                       color: Color(0xFF006633)),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 50.0),
-                Text(
+                const SizedBox(height: 50.0),
+                const Text(
                   'Login',
                   style: TextStyle(
                       fontSize: 40,
@@ -76,7 +76,7 @@ class _InititalScreenState extends State<InititalScreen> {
                                       'https://img.freepik.com/icones-gratis/procurar_318-265146.jpg'),
                                 ],
                               ),
-                              Text(
+                              const Text(
                                 'Google',
                                 style: TextStyle(fontSize: 30),
                               ),
@@ -112,7 +112,7 @@ Future signInGoogle(context) async {
 
   if (userGoogle == null) {
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Login Falhou')));
+        .showSnackBar(const SnackBar(content: Text('Login Falhou')));
   } else {
 
     // Retire o comentário caso queira testar o login
@@ -129,7 +129,7 @@ Future signInGoogle(context) async {
           creditCount: user.creditCount));
 
       Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+          .pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
     } else {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) => Login(userGoogle: userGoogle,) ));

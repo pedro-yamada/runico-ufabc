@@ -136,8 +136,13 @@ bool RAValidator(String? value) {
     if (ra == null) {
       return false;
     }
+    else{
+      return true;
+    }
   }
-  return true;
+  else{
+    return false;
+  }
 }
 
 bool emailValidator(String? email) {
@@ -182,9 +187,9 @@ class _MyFormDataPageState extends State<Login_dados> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFCC00),
+      backgroundColor: const Color(0xFFFFCC00),
       appBar: AppBar(
-        title: Text('Preencha seus dados:'),
+        title: const Text('Preencha seus dados:'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -194,6 +199,7 @@ class _MyFormDataPageState extends State<Login_dados> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
+                keyboardType: TextInputType.emailAddress,
                 validator: (String? value) {
                   if (!emailValidator(value)) {
                     return 'Insira o email institucional corretamente!';
@@ -201,12 +207,13 @@ class _MyFormDataPageState extends State<Login_dados> {
                   return null;
                 },
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'E-mail',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
+                keyboardType: const TextInputType.numberWithOptions(decimal: false),
                 validator: (String? value) {
                   if (!RAValidator(value)) {
                     return 'Insira o RA corretamente!';
@@ -214,11 +221,11 @@ class _MyFormDataPageState extends State<Login_dados> {
                   return null;
                 },
                 controller: _raController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'RA',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   final email = _emailController.text;
@@ -231,7 +238,7 @@ class _MyFormDataPageState extends State<Login_dados> {
                     registerUserData(widget.userGoogle, context);
                   }
                 },
-                child: Text('Enviar'),
+                child: const Text('Enviar'),
               ),
             ],
           ),
@@ -259,5 +266,5 @@ registerUserData(GoogleSignInAccount userGoogle, BuildContext context){
   userProvider.setUser(user);
 
   Navigator.of(context)
-      .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+      .pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
 }
