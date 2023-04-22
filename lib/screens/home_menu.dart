@@ -34,6 +34,7 @@ class _MenuScreenState extends State<MenuScreen> with RestorationMixin {
       context: context,
       builder: (BuildContext context) {
         return DatePickerDialog(
+          helpText: 'Selecione o dia',
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
