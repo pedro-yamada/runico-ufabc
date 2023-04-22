@@ -60,7 +60,7 @@ class UserDao {
     final Database database = await getDatabase();
     final List<Map<String, dynamic>> result = await database
         .query(_tablename, where: '$_email = ?', whereArgs: [userEmail]);
-    print('Usuario Encontrado: id:$_id, nome:$_name, email:$_email');
+    print('Usuario Encontrado: $result');
     return toList(result);
   }
 

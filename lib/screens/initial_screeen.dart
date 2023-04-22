@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:runico_ufabc/resources/colors.dart';
 import 'package:runico_ufabc/screens/login.dart';
 import 'package:runico_ufabc/api/google_signin_api.dart';
 import 'package:runico_ufabc/components/user.dart';
@@ -14,27 +15,24 @@ class InititalScreen extends StatefulWidget {
 }
 
 class _InititalScreenState extends State<InititalScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFFFCC00),
         body: Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(5.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 10.0),
-                const Text(
-                  'RÚnico UFABC:',
-                  style: TextStyle(
-                      fontSize: 80,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF006633)),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 50.0),
+                SizedBox(
+                    width: 350,
+                    height: 350,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      fit: BoxFit.fill,
+                    )),
+                // const SizedBox(height: 50.0),
                 const Text(
                   'Login',
                   style: TextStyle(
@@ -43,49 +41,67 @@ class _InititalScreenState extends State<InititalScreen> {
                       color: Color(0xFF006633)),
                   textAlign: TextAlign.center,
                 ),
-                Container(
-                  color: const Color(0xFFFFCC00),
+                const SizedBox(
+                  height: 30,
                 ),
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF006633),
-                        ),
-                        child: SizedBox(
-                          width: 250,
-                          height: 50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
+                      Center(
+                        child: Material(
+                          elevation: 10,
+                          borderRadius: BorderRadius.circular(8),
+                          child: InkWell(
+                            onTap: () {
+                              signInGoogle(context);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(0.0),
+                              height: 60.0,
+                              //MediaQuery.of(context).size.width * .08,
+                              width: 300.0,
+                              //MediaQuery.of(context).size.width * .3,
+                              decoration: BoxDecoration(
+                                color: coresufabc,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  LayoutBuilder(
+                                      builder: (context, constraints) {
+                                    print(constraints);
+                                    return Container(
+                                      height: constraints.maxHeight,
+                                      width: constraints.maxHeight,
+                                      decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(22),
-                                        border: Border.all(
-                                            color: Colors.black, width: 1)),
-                                    width: 50,
-                                    height: 50,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                            'assets/images/google.png'),
+                                      ),
+                                    );
+                                  }),
+                                  const Expanded(
+                                    child: Text(
+                                      'Google',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 32,
+                                      ),
+                                    ),
                                   ),
-                                  Image.network(
-                                      'https://img.freepik.com/icones-gratis/procurar_318-265146.jpg'),
                                 ],
                               ),
-                              const Text(
-                                'Google',
-                                style: TextStyle(fontSize: 30),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                        onPressed: () async {
-                          signInGoogle(context);
-                        },
                       ),
                       const SizedBox(
                         height: 100,
@@ -114,10 +130,6 @@ Future signInGoogle(context) async {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Login Falhou')));
   } else {
-
-    // Retire o comentário caso queira testar o login
-    // UserDao().delete(userGoogle.email);
-
     if (await verifyUser(userGoogle.email)) {
       List<User> users = await UserDao().find(userGoogle.email);
       User user = users[0];
@@ -128,11 +140,13 @@ Future signInGoogle(context) async {
           userType: user.userType,
           creditCount: user.creditCount));
 
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomePage()));
     } else {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => Login(userGoogle: userGoogle,) ));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => Login(
+                userGoogle: userGoogle,
+              )));
     }
   }
 }
