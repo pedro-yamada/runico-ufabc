@@ -103,10 +103,11 @@ class HomeScreen extends StatelessWidget {
                         children: const [
                           Icon(Icons.monetization_on_outlined),
                           Text(
+                            textAlign : TextAlign.center,
                             'Recarregar',
-                            style: TextStyle(fontSize: 30),
+                            style: TextStyle(fontSize: 25),
                           ),
-                          SizedBox(width: 15,)
+                          SizedBox(width: 10,)
                         ],
                       ),
                     ),
@@ -131,9 +132,11 @@ class HomeScreen extends StatelessWidget {
                         children: const [
                           Icon(Icons.qr_code_2),
                           Text(
+                            textAlign : TextAlign.start,
                             'Utilizar créditos',
-                            style: TextStyle(fontSize: 30),
+                            style: TextStyle(fontSize: 25),
                           ),
+                          SizedBox(width: 1,)
                         ],
                       ),
                     ),
