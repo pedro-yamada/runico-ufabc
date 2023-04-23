@@ -81,7 +81,7 @@ class _selecaoCreditosState extends State<selecaoCreditos> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text('Cotação para ${user?.userType}:',
+                      Text('Preço para ${user?.userType}:',
                           style: const TextStyle(fontSize: 18)),
                       Text(
                         'R\$${cotacao}',

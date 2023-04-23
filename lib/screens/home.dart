@@ -47,7 +47,6 @@ class _HomeState extends State<HomePage> {
                     // final user = userProvider.user;
                     // UserDao().delete(user!.email);
                     //
-
                     GoogleSignInAPI.loggout();
                     Navigator.of(context)
                         .pushReplacement(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:runico_ufabc/resources/colors.dart';
 import 'package:runico_ufabc/screens/credits_selection.dart';
+import 'package:runico_ufabc/screens/qr_code.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -98,11 +99,39 @@ class HomeScreen extends StatelessWidget {
                       width: 250,
                       height: 50,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
                           Icon(Icons.monetization_on_outlined),
                           Text(
                             'Recarregar',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          SizedBox(width: 15,)
+                        ],
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (contextNew) => selecaoCreditos(),
+                          ));
+                    },
+                  ),
+                  SizedBox(height: 15,),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF006633),
+                    ),
+                    child: SizedBox(
+                      width: 250,
+                      height: 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Icon(Icons.qr_code_2),
+                          Text(
+                            'Utilizar créditos',
                             style: TextStyle(fontSize: 30),
                           ),
                         ],
@@ -112,7 +141,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (contextNew) => selecaoCreditos(),
+                            builder: (contextNew) => qrCode(qrData: 'Meu código aqui'),
                           ));
                     },
                   ),
