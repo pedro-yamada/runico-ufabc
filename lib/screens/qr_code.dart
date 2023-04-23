@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'dart:math';
 
 class qrCode extends StatelessWidget {
   final String qrData;
+  final minWidth = 500.0;
 
   qrCode({required this.qrData});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xFFFFCC00),
       appBar: AppBar(
@@ -24,16 +27,27 @@ class qrCode extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 10.0),
-            Container(
-              color: Colors.white,
-              width: 200.0,
-              height: 200.0,
-              child: Center(
-                child: QrImage(
-                  data: 'seu_dado_do_QR_Code',
-                  version: QrVersions.auto,
-                  size: 200.0,
+            SizedBox(height: 25.0),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: screenWidth,
+                  maxHeight: screenWidth,
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      alignment: Alignment.center,
+                    ),
+                    QrImage(
+                      data: 'seu_dado_do_QR_Code',
+                      version: QrVersions.auto,
+                      size: screenWidth,
+                    ),
+                  ],
                 ),
               ),
             ),
