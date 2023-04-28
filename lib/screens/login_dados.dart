@@ -119,7 +119,7 @@ class _MyFormDataPageState extends State<Login_dados> {
                 },
                 controller: _emailController,
                 decoration: const InputDecoration(
-                  labelText: 'E-mail',
+                  labelText: 'E-mail institucional (@aluno.ufabc.edu.br)',
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -143,10 +143,31 @@ class _MyFormDataPageState extends State<Login_dados> {
                   final ra = _raController.text;
                   print('E-mail: $email, RA: $ra');
                   if (_formKey.currentState!.validate()){
-                    final token = gerarToken(email, ra);
-                    enviarEmailConfirmacao(email, token);
 
-                    registerUserData(widget.userGoogle, context);
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Confirmar dados'),
+                        content: Text('Confirme seus dados:\nE-mail: $email\nRA: $ra'),
+                        actions: [
+                          TextButton(
+                            child: const Text('Cancelar'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          ElevatedButton(
+                            child: const Text('Prosseguir'),
+                            onPressed: () {
+                              final token = gerarToken(email, ra);
+                              enviarEmailConfirmacao(email, token);
+
+                              registerUserData(widget.userGoogle, context);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
                   }
                 },
                 child: const Text('Enviar'),

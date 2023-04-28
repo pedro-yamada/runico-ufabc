@@ -150,7 +150,7 @@ class _MenuScreenState extends State<MenuScreen> with RestorationMixin {
                           ),
                         ),
                         Text(
-                          'Opção com carne: ${selectedMenu.jantaSalada}',
+                          'Opção com carne: ${selectedMenu.jantaCarne}',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: coresufabc,

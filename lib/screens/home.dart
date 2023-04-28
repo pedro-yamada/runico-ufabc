@@ -5,6 +5,11 @@ import 'package:runico_ufabc/screens/home_screen.dart';
 import 'package:runico_ufabc/api/google_signin_api.dart';
 import 'initial_screeen.dart';
 
+// Utilizados no Debug do Login
+import 'package:provider/provider.dart';
+import 'package:runico_ufabc/data/user_dao.dart';
+import 'package:runico_ufabc/components/user.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -42,7 +47,7 @@ class _HomeState extends State<HomePage> {
                 ElevatedButton(
                   child: const Text('Sair'),
                   onPressed: () {
-                    // Retire o comentário caso queira testar o login
+                    // Retire o comentário caso queira testar o login várias vezes
                     // final userProvider = Provider.of<UserProvider>(context, listen: false);
                     // final user = userProvider.user;
                     // UserDao().delete(user!.email);
